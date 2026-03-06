@@ -1,0 +1,22 @@
+name: Docker CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  validate-compose:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Show files
+        run: ls -R
+
+      - name: Check compose file exists
+        run: test -f compose.yaml
+
+      - name: Validate Docker Compose config
+        run: docker compose -f compose.yaml config
